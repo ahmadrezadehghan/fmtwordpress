@@ -1,0 +1,25 @@
+name: Deploy to InfinityFree
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  ftp-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Deploy via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
+          local-dir: .
+          server-dir: /htdocs
+          exclude:
+            - .github/**
+            - wp-config.php
+            - .gitignore
