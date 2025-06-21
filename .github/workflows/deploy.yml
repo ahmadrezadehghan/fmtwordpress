@@ -14,7 +14,8 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        # Use the 4.2.0 tag which is stable around dir handling
+        uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
@@ -22,7 +23,7 @@ jobs:
           protocol: ftp
           port: 21
           local-dir: "./"
-          # server-dir: removed, so files go into the FTP root (htdocs)
+          server-dir: "/"      # MUST end with /
           exclude: |
             .github/**
             wp-config.php
