@@ -21,8 +21,8 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           protocol: ftp
           port: 21
-          local-dir: ./ 
-          server-dir: htdocs/ 
+          local-dir: "./"
+          server-dir: "htdocs/"
           exclude: |
             .github/**
             wp-config.php
