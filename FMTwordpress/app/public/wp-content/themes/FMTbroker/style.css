@@ -1,0 +1,16 @@
+/*
+Theme Name:   FMTbroker
+Theme URI:    https://example.com/fmtbroker
+Author:       Your Name
+Description:  Professional WordPress theme with component-based file structure.
+Version:      1.0
+Text Domain:  fmtbroker
+Tags:         broker, finance, custom, components
+*/
+
+body {
+    margin: 0;
+    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* any additional global styles you’d added… */

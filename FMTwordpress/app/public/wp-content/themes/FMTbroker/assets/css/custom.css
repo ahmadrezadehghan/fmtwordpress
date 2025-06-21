@@ -1,0 +1,402 @@
+/* Modern Glassmorphic Header with Light Blue Gradient and refined padding */
+
+:root {
+    --primary: #00b4d8;
+    --primary-hover: #0096c7;
+    --text-light: #ffffff;
+    --text-dark: #222222; 
+    --bg-light: #f5f7fa;
+    --bg-dark: #212121;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --card-hover-shadow: rgba(0, 0, 0, 0.15);
+    font-size: 14px;
+    --font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* add this line */
+}
+
+/* Global Page Base */
+body {
+    background: var(bg-dark);
+    color: var(--text-dark);
+    font-family: var(--font-family-base);
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style: none;
+    /* add this block */
+    margin: 0;
+    padding: 0;
+}
+
+/* Glassmorphic Gradient Header */
+.site-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: linear-gradient(135deg, #212121, #212121);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    font-size: 1rem;
+}
+
+.header-inner {
+    width: 100%;
+    margin: 0;
+    padding: 1rem 5px;
+    /* 5px side padding */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo or Site Title */
+.site-branding .logo {
+    height: 3rem;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+}
+
+.site-branding .site-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Navigation Wrapper */
+.nav-search-wrap {
+    display: none;
+    align-items: center;
+    gap: 2rem;
+}
+
+@media (min-width: 992px) {
+    .nav-search-wrap {
+        display: flex;
+        /* فعال کردن فلکس‌باکس */
+        flex: 1;
+        /* کشش تا پر کردن فضای ممکن */
+        justify-content: space-between;
+        /* منو چپ، فرم راست */
+        align-items: center;
+        padding-right: 10px;
+        /* ۵px فاصله از لبه راست */
+    }
+}
+
+/* Luxury Menu */
+.nav-menu {
+    display: flex;
+    gap: 1.5rem;
+    padding-left: 50px;
+
+}
+
+.nav-menu a {
+    color: var(--text-light);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: color 0.3s;
+    letter-spacing: 0.3px;
+}
+
+.nav-menu .current-menu-item>a::after {
+    display: none;
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--text-light);
+    transition: width 0.3s;
+}
+
+.nav-menu a:hover,
+.current-menu-item>a {
+    color: var(--text-light);
+}
+
+.nav-menu a:hover::after,
+.nav-menu .current-menu-item>a {
+    /* base +2px */
+    color: #1694ca;
+    /* change to blue */
+
+    transition: none;
+    /* optional: disable hover transitions */
+}
+
+/* Search Form */
+.header-search {
+    display: flex;
+    /* margin-left: auto;  ← حذف شود */
+    background: #3d3d3d;
+    backdrop-filter: blur(8px);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 30px rgba(16, 16, 16, 0.1);
+}
+
+
+.header-search input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: none;
+    color: var(--text-light);
+    background: transparent;
+    font-size: 0.9rem;
+    font-family: var(--font-family-base);
+}
+
+.header-search input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.header-search button {
+    background: var(--text-light);
+    border: none;
+    color: #222;
+    padding: 0 1.25rem;
+    font-weight: 600;
+    font-family: var(--font-family-base);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.header-search button:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* Auth & Mobile Toggle */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.sign-in {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.sign-in:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.btn-join {
+    background: var(--text-light);
+    color: #222;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 180, 216, 0.4);
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-join:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.mobile-menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: block;
+}
+
+.hamburger {
+    width: 1.75rem;
+    height: 1.75rem;
+    stroke: var(--text-light);
+    stroke-width: 2.5;
+}
+
+@media (min-width: 992px) {
+    .mobile-menu-toggle {
+        display: none;
+    }
+}
+
+/* Mobile Panel */
+.mobile-nav-panel {
+    display: none;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+body.menu-open .mobile-nav-panel {
+    display: flex;
+}
+
+.mobile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+.mobile-menu a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    transition: background 0.3s;
+    font-family: var(--font-family-base);
+}
+
+.mobile-menu a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.auth-links {
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
+}
+
+.auth-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.auth-links a:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Pages Listing in a Row with Luxury Cards */
+.page-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 2rem 1rem;
+    font-family: var(--font-family-base);
+}
+
+.page-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px var(--card-shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 240px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family-base);
+}
+
+.page-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px var(--card-hover-shadow);
+}
+
+.page-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.page-card .card-content {
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.page-card .card-content h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+.page-card .card-content p {
+    flex: 1;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.page-card .card-content a {
+    align-self: flex-start;
+    background: var(--primary);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.page-card .card-content a:hover {
+    background: var(--primary-hover);
+}
+
+/* Remove the global uppercase */
+.site-branding .site-title {
+    text-transform: none;
+}
+
+/* Force the broker span to lowercase */
+.site-branding .site-title .b {
+    text-transform: lowercase;
+    color: var(--text-light);
+    /* or whatever base color you need */
+}
+
+/* Color the individual letters */
+.site-branding .site-title .f {
+    color: #1673ca;
+    /* light blue */
+}
+
+.site-branding .site-title .m {
+    color: #1694ca;
+    /* light purple */
+}
+
+.site-branding .site-title .t {
+    color: #16cac4;
+    /* light teal */
+}
+
+/* Ensure the rest of “broker” inherits your text color */
+.site-branding .site-title {
+    color: var(--text-light);
+}
+
+
+.page-card .card-content h3 {
+    font-size: 1rem;
+    /* change from 1.1rem to 1rem */
+}
+
+.page-card .card-content p {
+    font-size: 0.9rem;
+    /* change from 0.9rem to 0.8rem */
+}
