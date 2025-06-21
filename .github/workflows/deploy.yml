@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
@@ -19,7 +22,7 @@ jobs:
           protocol: ftp
           port: 21
           local-dir: "./"
-          server-dir: "/"    # deploy into the account root (infinityfree's htdocs)
+          # server-dir: removed, so files go into the FTP root (htdocs)
           exclude: |
             .github/**
             wp-config.php
