@@ -13,16 +13,20 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      - name: Debug server-dir value
+        run: |
+          echo ">>> server-dir from secret FTP_SERVER_DIR is: '${{ secrets.FTP_SERVER_DIR }}'"
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASS }}
-          protocol: ftp
-          port: 21
-          local-dir: "./"
-          server-dir: "./"        # point at the FTP root (which is htdocs)
+          server:      ${{ secrets.FTP_HOST }}
+          username:    ${{ secrets.FTP_USER }}
+          password:    ${{ secrets.FTP_PASS }}
+          protocol:    ftp
+          port:        21
+          local-dir:   "./"
+          server-dir:  ${{ secrets.FTP_SERVER_DIR }}
           exclude: |
             .github/**
             wp-config.php
