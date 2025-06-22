@@ -10,52 +10,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout
+      # 1. Checkout the repo
       - name: Check out code
         uses: actions/checkout@v3
 
-      # 2. Debug workspace layout
-      - name: Debug workspace
-        run: |
-          echo "=== WORKSPACE PWD ==="
-          pwd
-          echo "--- WORKSPACE CONTENTS ---"
-          ls -R .
-          echo "=== deploy.yml CONTENTS ==="
-          sed -n '1,50p' .github/workflows/deploy.yml
+      # 2. Install lftp
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
 
-      # 3. Raw FTP handshake test
-      - name: Test raw FTP connection
+      # 3. Mirror to InfinityFree via FTP
+      - name: Mirror files via lftp
         env:
-          HOST: ${{ secrets.FTP_HOST }}
-          USER: ${{ secrets.FTP_USER }}
-          PASS: ${{ secrets.FTP_PASS }}
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASS: ${{ secrets.FTP_PASS }}
         run: |
-          apt-get update -qq && apt-get install -y ftp
-          ftp -inv $HOST <<EOF
-          user $USER $PASS
-          pwd
-          ls
-          quit
+          echo "Starting lftp mirror to $FTP_HOST:/htdocs"
+          lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<EOF
+            set ftp:ssl-allow no        # disable FTPS (InfinityFree supports plain FTP)
+            mirror -R \
+              --delete \
+              --verbose \
+              --parallel=2 \
+              ./   /htdocs
+            quit
           EOF
-
-      # 4. Echo the server-dir secret you’ve set
-      - name: Debug server-dir value
-        run: |
-          echo ">>> server-dir from secret FTP_SERVER_DIR is: '${{ secrets.FTP_SERVER_DIR }}'"
-
-      # 5. Actual FTP deploy action
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.2.0
-        with:
-          server:      ${{ secrets.FTP_HOST }}
-          username:    ${{ secrets.FTP_USER }}
-          password:    ${{ secrets.FTP_PASS }}
-          protocol:    ftp
-          port:        21
-          local-dir:   "./"
-          server-dir:  ${{ secrets.FTP_SERVER_DIR }}   # adjust this based on raw FTP test
-          exclude: |
-            .github/**
-            wp-config.php
-            .gitignore
