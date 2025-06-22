@@ -18,8 +18,8 @@ jobs:
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      # 3. Mirror to InfinityFree via FTP
-      - name: Mirror files via lftp
+      # 3. Mirror via lftp
+      - name: Mirror files to InfinityFree
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_USER: ${{ secrets.FTP_USER }}
@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "Starting lftp mirror to $FTP_HOST:/htdocs"
           lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<EOF
-            set ftp:ssl-allow no        # disable FTPS (InfinityFree supports plain FTP)
+            set ftp:ssl-allow no
             mirror -R \
               --delete \
               --verbose \
