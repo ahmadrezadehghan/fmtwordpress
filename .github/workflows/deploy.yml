@@ -10,15 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout the repo
       - name: Check out code
         uses: actions/checkout@v3
 
-      # 2. Install lftp
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      # 3. Mirror via lftp
       - name: Mirror files to InfinityFree
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
@@ -32,6 +29,8 @@ jobs:
               --delete \
               --verbose \
               --parallel=2 \
+              --no-perms \
+              --exclude-glob wp-content.zip \
               ./   /htdocs
             quit
           EOF
